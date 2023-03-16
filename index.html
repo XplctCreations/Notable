@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/fontawesome/css/all.min.css" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="icon" href="./inv/post-it.png" />
+    <title>Notable</title>
+</head>
+
+
+<body>
+    <div class="column-container">
+        <div class="col-one column">
+            <div class="header">
+                <img src="./inv/post-it.png" alt="" />
+                <h1>Notable</h1>
+            </div>
+            <div class="tabs">
+                <ul>
+                    <li class="notes">
+                        <a href="">Notes</a>
+                        <h4 class="note-badge">0</h4>
+                    </li>
+                    <li><a href="">Starred</a></li>
+
+                </ul>
+            </div>
+            <button id="newNoteBTN" class="bottom">
+                <img src="./inv/addIcon.png" alt="" />
+                <h4>NEW</h4>
+            </button>
+        </div>
+        <div class="col-two column">
+            <div class="col-two-container">
+                <div class="col-two-header">
+                    <div class="col-two-header-left">
+                        <input type="text" placeholder="Search" />
+                        <button>
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+
+                    </div>
+                    <div class="col-two-header-right">
+                        <select class="sortStyle" name="sort" id="sortTag" placeholder="Filter">
+                            <option value="0"></option>
+                            <option value="Star">Starred</option>
+                            <option value="home">Home</option>
+                            <option value="school">School</option>
+                            <option value="work">Work</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-two-main">
+                    <!-- <div class="col-two-body"> -->
+                    <!-- <div class="col-two-body-top">
+                            <p class="note-title">Jerome Linder</p>
+                            <h4 class="note-date">Jan 03</h4>
+                        </div> -->
+                    <!-- <p class="note-text">
+                            This is a NoteApp, A fuckin NoteApp, Do whatever the fuck you like
+                            with it, the author doesnt have a lot of fucks to give. The author
+                            is literally just trying to fill Negative space with these
+                            unnecessary texts, then here comes the Ellipses...
+                        </p> -->
+                    <!-- <div class="icons"> -->
+                    <!-- <img class="star-icon" src="./inv/star.png" alt=""> -->
+                    <!-- tag e.g School, Work, Important etc -->
+                    <!-- <h6>WORK</h6> -->
+                    <!-- </div> -->
+                    <!-- </div> -->
+
+                </div>
+            </div>
+        </div>
+        <div class="col-three column">
+            <div class="col-three-header">
+                <button id="colThreeBackBtn" class="back-div">
+                    <i class="fa-regular fa-circle-left"></i>
+                    <h3>BACK</h3>
+                </button>
+                <div class="right-but">
+                    <select name="tag" id="dropDownTag">
+                        <option value="home">Home</option>
+                        <option value="school">School</option>
+                        <option value="work">Work</option>
+                        <option value=""></option>
+                    </select>
+                    <button><i class="fa-solid fa-star"></i></button>
+                    <button id="deleteNote"><i class="fa-solid fa-trash"></i></button>
+                </div>
+            </div>
+            <div class="col-three-main">
+                <textarea class="textareaInput" maxlength="100" id="titleInput" type="text"
+                    placeholder="Input Title"></textarea>
+                <h4 id="dateDone" class="hidden">LAST EDITED ON JANUARY 03, 2022</h4>
+                <div class="col-three-note">
+
+                    <textarea name="" id="thirdColumnTextarea" placeholder="Input Note"></textarea>
+                </div>
+            </div>
+            <div id='cautionOverlay' class="caution-page">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                <h3>Select a Note or Tap the "New" Button to Create a New Note</h3>
+            </div>
+            <div class="col-three-bottom">
+                <button id="editBtn">EDIT</button>
+                <button id="saveBtn">SAVE</button>
+            </div>
+        </div>
+    </div>
+    <script src="note.js"></script>
+</body>
+
+</html>

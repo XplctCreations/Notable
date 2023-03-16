@@ -1,0 +1,382 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  outline: none;
+}
+
+:root {
+  --pry-color: #003333;
+  --sec-color: #373c58;
+  --tert-color: rgb(153, 144, 144);
+  --white-color: white;
+  --deep-yellow: #ffcc00;
+  --red-color: #ff0000;
+}
+
+body {
+  font-family: "rubik";
+  background-color: var(--white-color);
+}
+body .column-container {
+  display: flex;
+  height: 100vh;
+}
+body .column-container .deep-yellow-toggle {
+  color: var(--deep-yellow);
+}
+body .col-one {
+  width: 15%;
+  display: grid;
+  grid-template-rows: 0.5fr 10fr 0.5fr;
+}
+body .col-one .header {
+  padding: 22px 30px;
+  background-color: var(--pry-color);
+  display: flex;
+  gap: 10px;
+}
+body .col-one .header img {
+  width: 20px;
+}
+body .col-one .header h1 {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--white-color);
+}
+body .col-one .tabs ul {
+  padding: 20px 30px;
+}
+body .col-one .tabs ul li {
+  list-style: none;
+}
+body .col-one .tabs ul li a {
+  color: var(--tert-color);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 450;
+  line-height: 60px;
+}
+body .col-one .tabs ul a:hover {
+  color: var(--sed-color);
+  transition: all ease-in 0.35s;
+}
+body .col-one .tabs ul .notes {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+body .col-one .tabs ul .notes .note-badge {
+  background-color: var(--pry-color);
+  color: var(--white-color);
+  padding: 4px 10px;
+  font-weight: 300;
+  border-radius: 10px;
+  font-size: 10px;
+}
+body .col-one .bottom {
+  background-color: var(--pry-color);
+  color: var(--white-color);
+  display: flex;
+  padding: 22px 30px;
+  gap: 10px;
+  border: none;
+}
+body .col-one .bottom img {
+  height: 12px;
+}
+body .col-one .bottom h4 {
+  font-weight: 400;
+  letter-spacing: 5px;
+}
+body .col-one .bottom:hover {
+  cursor: pointer;
+  background-color: #011818;
+  transition: all ease-in-out 0.5s;
+}
+body .col-two {
+  background-color: var(--white-color);
+  width: 35%;
+  border-right: 0.1px solid rgb(241, 238, 238);
+  border-left: 0.1px solid rgb(241, 238, 238);
+}
+body .col-two .col-two-header {
+  padding: 0 35px;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+}
+body .col-two .col-two-header input {
+  letter-spacing: 1px;
+  color: var(--tert-color);
+  border: none;
+  font-size: 12px;
+  font-weight: 400;
+  width: 20vw;
+  height: 9vh;
+}
+body .col-two .col-two-header img {
+  height: 14px;
+}
+body .col-two .col-two-header button {
+  color: var(--tert-color);
+  background-color: white;
+  padding: 1em;
+  border: none;
+  font-size: 10px;
+  cursor: pointer;
+}
+body .col-two .col-two-header .col-two-header-left {
+  display: flex;
+  justify-content: space-between;
+}
+body .col-two .col-two-header .col-two-header-right {
+  display: flex;
+  background-color: red;
+}
+body .col-two .col-two-header .col-two-header-right .sortStyle {
+  border: none;
+  color: var(--tert-color);
+  font-size: 0.85em;
+}
+body .col-two .col-two-main {
+  height: 91vh;
+  overflow: auto;
+}
+body .col-two .col-two-body {
+  padding: 23px 35px;
+  height: 158px;
+  display: grid;
+  border-bottom: 1px solid rgb(241, 238, 238);
+  background-color: rgba(236, 240, 243, 0.281);
+  position: relative;
+}
+body .col-two .col-two-body .col-two-body-top {
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  color: var(--pry-color);
+}
+body .col-two .col-two-body .col-two-body-top .note-date {
+  font-weight: 400;
+  font-size: 10px;
+  color: var(--tert-color);
+}
+body .col-two .col-two-body .col-two-body-top .note-title {
+  display: flex;
+  height: 15px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+body .col-two .col-two-body .note-text {
+  line-height: 18px;
+  color: var(--sec-color);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+body .col-two .col-two-body .icons {
+  display: flex;
+  justify-content: right;
+}
+body .col-two .col-two-body .icons h6 {
+  font-weight: 500;
+  color: var(--red-color);
+  letter-spacing: 1px;
+  margin-left: 10px;
+  text-transform: uppercase;
+}
+body .col-two .col-two-body .icons .star-icon {
+  height: 10px;
+  display: flex;
+}
+body .col-two .del-on-hover {
+  color: red;
+  background-color: rgb(242, 242, 243);
+  position: absolute;
+  right: 0px;
+  height: 100%;
+  align-items: center;
+  padding: 20px;
+  cursor: pointer;
+  display: none;
+}
+body .col-two .del-on-hover:hover {
+  padding: 20px 50px;
+  transition: all 0.5s ease-in-out;
+}
+body .col-two .col-two-body:hover > .del-on-hover {
+  display: flex;
+}
+body .col-two .col-two-body > .del-on-hover {
+  transform-origin: top center;
+  animation: translationP 500ms 60ms ease-in-out forwards;
+}
+@keyframes translationP {
+  0% {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  50% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+}
+body .col-two .col-two-body:hover {
+  background-color: rgba(232, 227, 245, 0.658);
+  cursor: pointer;
+  transition: all ease-in 0.3s;
+}
+body .col-three {
+  background-color: var(--white-color);
+  width: 50%;
+  display: grid;
+  grid-template-rows: 0.5fr 10fr 0.5fr;
+}
+body .col-three .col-three-header {
+  background-color: var(--white-color);
+  padding: 25px 45px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+body .col-three .col-three-header button {
+  display: flex;
+  gap: 7px;
+  background: none;
+  border: none;
+  color: var(--tert-color);
+}
+body .col-three .col-three-header i {
+  font-size: 10px;
+}
+body .col-three .col-three-header button:hover {
+  color: var(--pry-color);
+  cursor: pointer;
+  transition: all ease-out 0.35s;
+}
+body .col-three .col-three-header h3 {
+  letter-spacing: 1.5px;
+  font-size: 10px;
+}
+body .col-three .col-three-header .back-div:hover {
+  color: red;
+}
+body .col-three .col-three-header .right-but {
+  display: flex;
+  gap: 50px;
+}
+body .col-three .col-three-header .right-but #dropDownTag {
+  border: none;
+  background: gray;
+  padding: 2px;
+  color: white;
+  border-radius: 2px;
+  display: flex;
+}
+body .col-three .col-three-header .right-but i {
+  font-size: 12px;
+}
+body .col-three .col-three-header .right-but .fa-trash:hover {
+  color: var(--red-color);
+  cursor: pointer;
+  transition: all ease-out 0.35s;
+}
+body .col-three .col-three-header .right-but .fa-star:hover {
+  color: var(--deep-yellow);
+  cursor: pointer;
+  transition: all ease-out 0.35s;
+}
+body .col-three .col-three-main {
+  background-color: var(--white-color);
+  padding: 0 45px;
+  margin-top: 30px;
+  color: var(--pry-color);
+}
+body .col-three .col-three-main .textareaInput {
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  height: 45px;
+  resize: none;
+}
+body .col-three .col-three-main ::placeholder {
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgb(211, 200, 200);
+}
+body .col-three .col-three-main h4 {
+  font-weight: 400;
+  font-size: 9px;
+  color: var(--tert-color);
+  letter-spacing: 1px;
+  border-bottom: 1px solid rgb(238, 233, 233);
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+}
+body .col-three .col-three-main textarea {
+  width: 100%;
+  height: 400px;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--pry-color);
+  border: none;
+  resize: none;
+}
+body .col-three .col-three-main .col-three-note ::placeholder {
+  font-size: 10px;
+  text-transform: capitalize;
+  font-weight: 400;
+  color: rgb(211, 200, 200);
+}
+body .col-three .caution-page {
+  background-color: var(--white-color);
+  position: absolute;
+  height: 100vh;
+  width: 50vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+body .col-three .caution-page i {
+  font-size: 24px;
+  color: gray;
+  margin-bottom: 10px;
+}
+body .col-three .caution-page h3 {
+  width: 250px;
+  text-align: center;
+  font-weight: 400;
+  color: gray;
+  letter-spacing: 1px;
+  line-height: 20px;
+}
+body .col-three .col-three-bottom {
+  background-color: var(--pry-color);
+  display: flex;
+  justify-content: right;
+  padding: 25px 45px;
+  gap: 25px;
+  color: var(--white-color);
+}
+body .col-three .col-three-bottom button {
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  border: none;
+  background: none;
+  color: var(--white-color);
+}
+body .col-three .col-three-bottom button:hover {
+  cursor: pointer;
+  color: #16cfcf;
+}
+body .hidden {
+  display: none;
+}/*# sourceMappingURL=style.css.map */
