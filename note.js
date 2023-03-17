@@ -247,7 +247,14 @@ function saveNote() {
     delOnHover.classList.add('del-on-hover');
 
     delOnHover.onclick = e => {
-      removeAnote();
+      e.target.parentElement.remove();
+      noteArray.splice(e.target.parentElement, 1);
+      localStorage.setItem('storedNote', JSON.stringify(noteArray));
+      titleInput.value = '';
+      textArea.value = '';
+      cautionPage.style.display = 'flex';
+
+      noteCounting();
     };
 
     aNote.onclick = e => {
