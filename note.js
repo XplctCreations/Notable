@@ -13,6 +13,7 @@ const dropDownTagBtn = document.getElementById('dropDownTag');
 const favouriteBtn = document.querySelector('.fa-star');
 const thrashNote = document.getElementById('deleteNote');
 const noteBadge = document.querySelector('.note-badge');
+const searchInput = document.querySelector('#searchInp');
 // const divHoldingAllNote = document.querySelector('.col-two-main');
 
 /// ARRAY HOLDING NOTE,TITLE & TITLE
@@ -151,6 +152,28 @@ titleInput.addEventListener('keyup', () => {
 });
 
 //FUNCTIONS
+
+searchInput.addEventListener('input', e => {
+  const allNote = document.querySelector('.col-two-main');
+  const eachNote = 2;
+
+  searchValue = e.target.value.toLowerCase();
+  noteArray.forEach(noteObj => {
+    const searchSimilar =
+      noteObj.title.toLowerCase().includes(searchValue) ||
+      noteObj.text.toLowerCase().includes(searchValue);
+
+    console.log(e.target.value.toLowerCase());
+    console.log(searchSimilar);
+
+    eachNote.classList.toggle('hidden', !searchSimilar);
+  });
+});
+
+searchInput.addEventListener('blur', () => {
+  searchInput.value = '';
+});
+
 function noteCounting() {
   noteBadge.innerText = noteArray.length;
   noteBadge.classList.add('note-badge');
@@ -232,9 +255,10 @@ function saveNote() {
       id = Math.trunc(Math.random() * 999),
       text = textArea.value,
       tag = dropDownTagBtn.value,
+      element = 'Default',
       favorite = favouriteBtn.classList.contains('deep-yellow-toggle');
 
-    const noteObj = { title, text, id, tag, favorite };
+    const noteObj = { title, text, id, tag, favorite, element };
     noteArray.push(noteObj);
 
     const aNote = document.createElement('div');
@@ -263,9 +287,9 @@ function saveNote() {
         textArea.value = aNoteText.innerText;
         titleInput.value = aNoteTitle.innerText;
         inputTag.innerText = dropDownTagBtn.value;
-        // console.log('seconf swisssss');
-        console.log(noteObj.favorite);
-        console.log(e.target.parentElement);
+        // console.log(noteObj.title.toLowerCase());
+        // console.log(noteObj.favorite);
+        // console.log(e.target.parentElement);
 
         editedDate.classList.remove('hidden');
         textArea.setAttribute('readonly', true);
@@ -274,6 +298,10 @@ function saveNote() {
 
         if (noteObj.favorite == true) {
           favouriteBtn.classList.add('deep-yellow-toggle');
+        }
+
+        for (let s = 0; s < noteArray.length; s++) {
+          // console.log(noteArray[s]);
         }
       }
 
@@ -352,4 +380,54 @@ function saveNote() {
 
   noteCounting();
   save();
+}
+
+const tabNote = document.querySelector('.notes');
+const tabStar = document.querySelector('.starr');
+const columnThree = document.querySelector('.col-three');
+const columnTwo = document.querySelector('.col-two');
+const noteMain = document.querySelector('.col-two-main');
+const aNoteMobile = document.querySelector('.col-two-body');
+
+if (window.matchMedia('(max-width: 320px)').matches) {
+  console.log('Size is 320px');
+  tabNote.innerHTML = '<i class="fa-solid fa-clipboard"></i>';
+  tabStar.innerHTML = '<i class="fa-solid fa-star"></i>';
+
+  cautionPage.style.display = 'flex';
+
+  tabNote.onclick = () => {
+    cautionPage.style.display = 'none';
+    columnThree.classList.toggle('hidden');
+    columnTwo.style.display = 'grid';
+    columnTwo.style.zIndex = 2;
+    columnThree.style.zIndex = 1;
+  };
+
+  saveButton.onclick = () => {
+    cautionPage.style.display = 'none';
+    columnThree.classList.toggle('hidden');
+    columnTwo.style.display = 'grid';
+    columnTwo.style.zIndex = 2;
+    columnThree.style.zIndex = 1;
+  };
+
+  // var sisi = noteMain.childNodes;
+  for (let i = 0; i < noteMain.length; i++) {
+    noteMain[i].addEventListener('click', () => {
+      console.log('psycgg');
+    });
+  }
+
+  // columnThree.style.display = 'grid';
+  // cautionPage.style.display = 'none';
+  // columnThree.style.zIndex = 2;
+  // columnTwo.style.zIndex = 1;
+
+  newNoteButton.addEventListener('click', () => {
+    columnThree.style.display = 'grid';
+    cautionPage.style.display = 'none';
+    columnThree.style.zIndex = 2;
+    columnTwo.style.zIndex = 1;
+  });
 }
