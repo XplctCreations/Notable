@@ -450,7 +450,7 @@ body .hidden {
     background-color: red;
   }
 }
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 425px) {
   body .column-container {
     display: flex;
     height: 100%;

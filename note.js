@@ -389,7 +389,7 @@ const columnTwo = document.querySelector('.col-two');
 const noteMain = document.querySelector('.col-two-main');
 const aNoteMobile = document.querySelector('.col-two-body');
 
-if (window.matchMedia('(max-width: 320px)').matches) {
+if (window.matchMedia('(max-width: 425px)').matches) {
   console.log('Size is 320px');
   tabNote.innerHTML = '<i class="fa-solid fa-clipboard"></i>';
   tabStar.innerHTML = '<i class="fa-solid fa-star"></i>';
