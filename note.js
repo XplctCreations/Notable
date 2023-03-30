@@ -289,7 +289,7 @@ function saveNote() {
         inputTag.innerText = dropDownTagBtn.value;
         // console.log(noteObj.title.toLowerCase());
         // console.log(noteObj.favorite);
-        console.log(e.target.parentElement);
+        // console.log(e.target.parentElement);
 
         editedDate.classList.remove('hidden');
         textArea.setAttribute('readonly', true);
@@ -301,7 +301,7 @@ function saveNote() {
         }
 
         for (let s = 0; s < noteArray.length; s++) {
-          console.log(noteArray[s]);
+          // console.log(noteArray[s]);
         }
       }
 
@@ -386,8 +386,8 @@ const tabNote = document.querySelector('.notes');
 const tabStar = document.querySelector('.starr');
 const columnThree = document.querySelector('.col-three');
 const columnTwo = document.querySelector('.col-two');
-const aNoteMobile = document.querySelector('.col-two-body');
 const noteMain = document.querySelector('.col-two-main');
+const aNoteMobile = document.querySelector('.col-two-body');
 
 if (window.matchMedia('(max-width: 320px)').matches) {
   console.log('Size is 320px');
@@ -410,13 +410,19 @@ if (window.matchMedia('(max-width: 320px)').matches) {
     columnTwo.style.display = 'grid';
     columnTwo.style.zIndex = 2;
     columnThree.style.zIndex = 1;
-
-    for (let x = 0; x < noteMain.length; x++) {
-      if (e.target == noteMain[e]) {
-        console.log('lovee');
-      }
-    }
   };
+
+  // var sisi = noteMain.childNodes;
+  for (let i = 0; i < noteMain.length; i++) {
+    noteMain[i].addEventListener('click', () => {
+      console.log('psycgg');
+    });
+  }
+
+  // columnThree.style.display = 'grid';
+  // cautionPage.style.display = 'none';
+  // columnThree.style.zIndex = 2;
+  // columnTwo.style.zIndex = 1;
 
   newNoteButton.addEventListener('click', () => {
     columnThree.style.display = 'grid';
