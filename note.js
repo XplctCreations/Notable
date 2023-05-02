@@ -14,6 +14,12 @@ const favouriteBtn = document.querySelector('.fa-star');
 const thrashNote = document.getElementById('deleteNote');
 const noteBadge = document.querySelector('.note-badge');
 const searchInput = document.querySelector('#searchInp');
+const starredBtn = document.querySelector('.starr');
+const tagEmpty = document.getElementById('optEmpty');
+const tagSch = document.getElementById('optSch');
+const tagWork = document.getElementById('optWork');
+const tagHome = document.getElementById('optHome');
+const sortTag = document.querySelector('#sortTag');
 // const divHoldingAllNote = document.querySelector('.col-two-main');
 
 /// ARRAY HOLDING NOTE,TITLE & TITLE
@@ -32,11 +38,10 @@ let render = () => {
     delOnHover.className = 'fa-solid fa-trash';
     delOnHover.classList.add('del-on-hover');
 
-    delOnHover.onclick = e => {
+    deleteTheNote = e => {
       titleInput.value = '';
       textArea.value = '';
       cautionPage.style.display = 'flex';
-      // console.log(noteObj);
       e.target.parentElement.remove();
       noteArray.splice(e.target.parentElement, 1);
       localStorage.setItem('storedNote', JSON.stringify(noteArray));
@@ -44,19 +49,65 @@ let render = () => {
       noteCounting();
     };
 
+    delOnHover.onclick = e => {
+      deleteTheNote(e);
+    };
+
+    if (window.matchMedia('(max-width: 425px)').matches) {
+      aNote.onclick = () => {
+        columnThree.style.display = 'grid';
+        cautionPage.style.display = 'none';
+        columnThree.style.zIndex = 2;
+        columnTwo.style.display = 'none';
+      };
+
+      // Detect swipe gesture
+      let startX = 0;
+      let endX = 0;
+      aNote.addEventListener('touchstart', function (event) {
+        startX = event.touches[0].clientX;
+      });
+
+      aNote.addEventListener('touchmove', function (event) {
+        endX = event.touches[0].clientX;
+      });
+
+      aNote.addEventListener('touchend', function (e) {
+        // Calculate swipe distance
+        let swipeDistance = endX - startX;
+        let swipeThreshold = window.innerWidth * 0.15; // Adjust this threshold to your preference
+
+        // Swipe left
+        // if (swipeDistance < -swipeThreshold) {
+        //   console.log('swiped short');
+        // }
+        // Swipe right
+        if (swipeDistance > swipeThreshold) {
+          deleteTheNote(e);
+        }
+      });
+    }
+
     aNote.onclick = e => {
+      if (window.matchMedia('(max-width: 425px)').matches) {
+        columnThree.style.display = 'grid';
+        cautionPage.style.display = 'none';
+        columnThree.style.zIndex = 2;
+        columnTwo.style.display = 'none';
+      }
+
       favouriteBtn.classList.remove('deep-yellow-toggle');
       if (e.target !== delOnHover) {
         cautionPage.style.display = 'none';
         textArea.value = aNoteText.innerText;
         titleInput.value = aNoteTitle.innerText;
         dropDownTagBtn.value = noteArray[i].tag;
+        editedDate.innerText = `Last Edited ${noteArray[i].dated}`;
 
         editedDate.classList.remove('hidden');
         textArea.setAttribute('readonly', true);
         titleInput.setAttribute('readonly', true);
         edit.innerText = 'EDIT';
-        //  console.log('Current Note Selected');
 
         if (noteArray[i].favorite == true) {
           favouriteBtn.classList.add('deep-yellow-toggle');
@@ -68,6 +119,7 @@ let render = () => {
           e.target.parentElement.remove();
           noteArray.splice(e.target.parentElement, 1);
           localStorage.setItem('storedNote', JSON.stringify(noteArray));
+          w;
 
           noteCounting();
         }
@@ -105,7 +157,6 @@ let render = () => {
     inputTag.classList.add('h6');
     inputTag.innerText = noteArray[i].tag;
     aNoteIcons.appendChild(inputTag);
-    // console.log(noteArray);
   }
 
   noteCounting();
@@ -135,6 +186,7 @@ edit.addEventListener('click', doneWithNote);
 saveButton.addEventListener('click', saveNote);
 favouriteBtn.addEventListener('click', starNote);
 thrashNote.addEventListener('click', thrashingNote);
+starredBtn.addEventListener('click', showStarredOnly);
 
 //Quick Event Listeners
 textArea.addEventListener('keyup', () => {
@@ -154,25 +206,74 @@ titleInput.addEventListener('keyup', () => {
 //FUNCTIONS
 
 searchInput.addEventListener('input', e => {
-  const allNote = document.querySelector('.col-two-main');
-  const eachNote = 2;
-
+  getItem();
+  noteListContainer.innerHTML = null;
   searchValue = e.target.value.toLowerCase();
-  noteArray.forEach(noteObj => {
-    const searchSimilar =
-      noteObj.title.toLowerCase().includes(searchValue) ||
-      noteObj.text.toLowerCase().includes(searchValue);
 
-    console.log(e.target.value.toLowerCase());
-    console.log(searchSimilar);
+  noteArray = noteArray.filter(
+    xo =>
+      xo.title.toLowerCase().includes(searchValue) ||
+      xo.text.toLowerCase().includes(searchValue)
+  );
 
-    eachNote.classList.toggle('hidden', !searchSimilar);
-  });
+  render();
 });
 
 searchInput.addEventListener('blur', () => {
   searchInput.value = '';
 });
+
+function showStarredOnly(e) {
+  e.preventDefault();
+  getItem();
+  noteListContainer.innerHTML = null;
+  noteArray = noteArray.filter(st => st.favorite === true);
+  render();
+}
+
+function selectedTag(sel) {
+  // e.preventDefault();
+  getItem();
+  noteListContainer.innerHTML = null;
+  noteArray = noteArray.filter(st => st.tag == sel);
+  render();
+}
+
+sortTag.onblur = e => {
+  if (sortTag.value !== 'all') {
+    e.preventDefault();
+    sortTag.value = 'all';
+  }
+};
+
+function sortNote(e, tagOfNote) {
+  e.preventDefault();
+  getItem();
+  noteListContainer.innerHTML = null;
+  noteArray = noteArray.filter(st => st.tag === tagOfNote);
+  render();
+}
+
+sortTag.onclick = e => {
+  switch (e.target.value) {
+    case 'all':
+      noteListContainer.innerHTML = null;
+      getItem();
+      break;
+    case 'home':
+      sortNote(e, 'home');
+      break;
+    case 'school':
+      sortNote(e, 'school');
+      break;
+    case 'work':
+      sortNote(e, 'work');
+      break;
+    case '':
+      sortNote(e, '');
+      break;
+  }
+};
 
 function noteCounting() {
   noteBadge.innerText = noteArray.length;
@@ -204,7 +305,6 @@ function backToCautionPage() {
 }
 
 function removeAnote() {
-  // console.log(noteObj);
   e.target.parentElement.remove();
   noteArray.splice(e.target.parentElement, 1);
   localStorage.setItem('storedNote', JSON.stringify(noteArray));
@@ -219,13 +319,14 @@ function starNote() {
   favouriteBtn.classList.toggle('deep-yellow-toggle');
 }
 
-function editPage() {
+function editPage(e) {
+  let curDate = moment(new Date()).format('LLL');
+  editedDate.innerText = `Last Edited ${curDate}`;
+
   editedDate.classList.remove('hidden');
   textArea.setAttribute('readonly', true);
   titleInput.setAttribute('readonly', true);
   edit.innerText = 'EDIT';
-
-  dropDownTagBtn.setAttribute('disabled', true);
 }
 
 function thrashingNote() {
@@ -250,15 +351,18 @@ function doneWithNote(e) {
 }
 
 function saveNote() {
+  let curDate = new Date();
+
   if (edit.innerText === 'EDIT') {
     let title = titleInput.value,
       id = Math.trunc(Math.random() * 999),
       text = textArea.value,
       tag = dropDownTagBtn.value,
       element = 'Default',
+      dated = moment(curDate).format('LLL'),
       favorite = favouriteBtn.classList.contains('deep-yellow-toggle');
 
-    const noteObj = { title, text, id, tag, favorite, element };
+    const noteObj = { title, text, id, tag, favorite, dated, element };
     noteArray.push(noteObj);
 
     const aNote = document.createElement('div');
@@ -282,16 +386,21 @@ function saveNote() {
     };
 
     aNote.onclick = e => {
+      if (window.matchMedia('(max-width: 425px)').matches) {
+        columnThree.style.display = 'grid';
+        cautionPage.style.display = 'none';
+        columnThree.style.zIndex = 2;
+        columnTwo.style.display = 'none';
+      }
+
       if (e.target !== delOnHover) {
         cautionPage.style.display = 'none';
         textArea.value = aNoteText.innerText;
         titleInput.value = aNoteTitle.innerText;
         inputTag.innerText = dropDownTagBtn.value;
-        // console.log(noteObj.title.toLowerCase());
-        // console.log(noteObj.favorite);
-        // console.log(e.target.parentElement);
 
         editedDate.classList.remove('hidden');
+        editedDate.innerText = `Last Edited ${dated}`;
         textArea.setAttribute('readonly', true);
         titleInput.setAttribute('readonly', true);
         edit.innerText = 'EDIT';
@@ -299,34 +408,24 @@ function saveNote() {
         if (noteObj.favorite == true) {
           favouriteBtn.classList.add('deep-yellow-toggle');
         }
-
-        for (let s = 0; s < noteArray.length; s++) {
-          // console.log(noteArray[s]);
-        }
       }
 
-      // if (aNoteIcons.querySelector(img)) {
-      //   console.log('Starred');
-      // }
+      //FIX
+      edit.onclick = () => {
+        newNoteButton.onclick = () => {
+          saveButton.onclick = x => {
+            saveNote();
+          };
+        };
+      };
 
       saveButton.onclick = () => {
         if (edit.innerText == 'EDIT') {
-          // I am trying to check by looping through the array if there is no similar id so that it wont overwrite an initially created note
-
-          // for (let x = 0; x < noteArray.length; x++) {
-          //   if (noteArray[x].id === )
-          // }
-          // console.log('Remove Current');
-
           e.target.parentElement.remove();
           noteArray.splice(e.target.parentElement, 1);
           localStorage.setItem('storedNote', JSON.stringify(noteArray));
-          // console.log(noteArray);
         }
       };
-
-      //   dropDownTagBtn.style.display = 'none';
-      //   favouriteBtn.style.display = 'none';
     };
 
     let aNoteDiv = document.createElement('div');
@@ -345,11 +444,8 @@ function saveNote() {
 
     removeReadonlyAndShowDate();
 
-    // console.log(noteArray);
-
     titleInput.value = '';
     textArea.value = '';
-    // cautionPage.style.display = 'flex';
 
     let aNoteIcons = document.createElement('div');
     aNoteIcons.classList.add('icons');
@@ -367,15 +463,11 @@ function saveNote() {
     inputTag.classList.add('h6');
     inputTag.innerText = tag;
     aNoteIcons.appendChild(inputTag);
-    // console.log(noteArray);
 
     dropDownTagBtn.style.display = 'flex';
     favouriteBtn.style.display = 'flex';
     dropDownTagBtn.removeAttribute('disabled');
     cautionPage.style.display = 'flex';
-
-    // favouriteBtn.classList.add('button');
-    // favouriteBtn.style.color = 'rgb(153, 144, 144)';
   }
 
   noteCounting();
@@ -390,18 +482,19 @@ const noteMain = document.querySelector('.col-two-main');
 const aNoteMobile = document.querySelector('.col-two-body');
 
 if (window.matchMedia('(max-width: 425px)').matches) {
-  console.log('Size is 320px');
   tabNote.innerHTML = '<i class="fa-solid fa-clipboard"></i>';
   tabStar.innerHTML = '<i class="fa-solid fa-star"></i>';
 
   cautionPage.style.display = 'flex';
 
   tabNote.onclick = () => {
+    noteListContainer.innerHTML = null;
+    getItem();
     cautionPage.style.display = 'none';
     columnThree.classList.toggle('hidden');
     columnTwo.style.display = 'grid';
     columnTwo.style.zIndex = 2;
-    columnThree.style.zIndex = 1;
+    columnThree.style.display = 'none';
   };
 
   saveButton.onclick = () => {
@@ -409,25 +502,23 @@ if (window.matchMedia('(max-width: 425px)').matches) {
     columnThree.classList.toggle('hidden');
     columnTwo.style.display = 'grid';
     columnTwo.style.zIndex = 2;
-    columnThree.style.zIndex = 1;
+    columnThree.style.display = 'none';
   };
-
-  // var sisi = noteMain.childNodes;
-  for (let i = 0; i < noteMain.length; i++) {
-    noteMain[i].addEventListener('click', () => {
-      console.log('psycgg');
-    });
-  }
-
-  // columnThree.style.display = 'grid';
-  // cautionPage.style.display = 'none';
-  // columnThree.style.zIndex = 2;
-  // columnTwo.style.zIndex = 1;
 
   newNoteButton.addEventListener('click', () => {
     columnThree.style.display = 'grid';
     cautionPage.style.display = 'none';
     columnThree.style.zIndex = 2;
-    columnTwo.style.zIndex = 1;
+    columnTwo.style.display = 'none';
   });
+
+  thirdColumnBackBtn.onclick = () => {
+    noteListContainer.innerHTML = null;
+    getItem();
+    cautionPage.style.display = 'none';
+    columnThree.classList.toggle('hidden');
+    columnTwo.style.display = 'grid';
+    columnTwo.style.zIndex = 2;
+    columnThree.style.display = 'none';
+  };
 }
