@@ -213,7 +213,6 @@ body {
         color: var(--sec-color);
         text-overflow: ellipsis;
         overflow: hidden;
-        // background-color: red;
         white-space: nowrap;
       }
       .icons {
@@ -297,7 +296,6 @@ body {
       align-items: center;
 
       button {
-        // background-color: red;
         display: flex;
         gap: 7px;
         background: none;
@@ -361,7 +359,6 @@ body {
 
       .textareaInput {
         font-size: 18px;
-        // margin-bottom: 1px;
         font-weight: 600;
         border: none;
         background: none;
@@ -369,8 +366,6 @@ body {
         text-align: left;
         height: 45px;
         resize: none;
-
-        // background-color: red;
       }
       ::placeholder {
         font-size: 12px;
@@ -521,7 +516,7 @@ body {
         height: 80%;
       }
       .col-three-bottom {
-        background-color: red;
+        background-color: var(--pry-color);
         // padding: 0;
       }
     }
@@ -530,6 +525,7 @@ body {
 
 @media screen and (max-width: 425px) {
   body {
+    // height: 100%;
     // background-color: purple;
     .column-container {
       display: flex;
@@ -540,6 +536,7 @@ body {
         background-color: white;
         position: absolute;
         z-index: 3;
+        justify-content: space-between;
         .header {
           width: 17vw;
           padding: 20px 0;
@@ -556,18 +553,18 @@ body {
         }
         .tabs {
           width: 17vw;
-          padding: 20px 0;
+          padding: 29.3em 0 0 0;
           display: flex;
-          justify-content: center;
-          align-items: center;
+          // justify-content: center;
+          // align-items: center;
+          bottom: 10px;
 
           .fa-star {
             color: gold;
           }
 
           ul {
-            margin-top: 54.5em;
-
+            padding: 0;
             li {
               width: 17vw;
               padding: 20px 0;
@@ -591,6 +588,8 @@ body {
           justify-content: center;
           align-items: center;
           border-top: 1px solid #065050;
+          // position: absolute;
+          // bottom: 0;
           h4 {
             display: none;
           }
@@ -606,6 +605,14 @@ body {
 
         .col-two-body {
           height: 9em;
+        }
+
+        .col-two-body:hover > .del-on-hover {
+          display: none;
+        }
+
+        .col-two-main {
+          height: 90vh;
         }
       }
 

@@ -47,11 +47,11 @@
                     </div>
                     <div class="col-two-header-right">
                         <select class="sortStyle" name="sort" id="sortTag" placeholder="Filter">
-                            <option value="0"></option>
-                            <option value="Star">Starred</option>
-                            <option value="home">Home</option>
-                            <option value="school">School</option>
-                            <option value="work">Work</option>
+                            <option value="all" id="optAll">All</option>
+                            <option value="home" id="optHome">Home</option>
+                            <option value="school" id="optSch">School</option>
+                            <option value="work" id="optWork">Work</option>
+                            <option value="" id="optEmpty"></option>
                         </select>
                     </div>
                 </div>
@@ -96,6 +96,7 @@
             </div>
         </div>
     </div>
+    <script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
     <script src="note.js"></script>
 </body>
 
