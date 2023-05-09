@@ -20,7 +20,6 @@ const tagSch = document.getElementById('optSch');
 const tagWork = document.getElementById('optWork');
 const tagHome = document.getElementById('optHome');
 const sortTag = document.querySelector('#sortTag');
-// const divHoldingAllNote = document.querySelector('.col-two-main');
 
 /// ARRAY HOLDING NOTE,TITLE & TITLE
 let noteArray = [];
@@ -33,11 +32,13 @@ let render = () => {
     aNote.classList.add('col-two-body');
     noteListContainer.appendChild(aNote);
 
+    //Delete button shows when you hover on a note
     let delOnHover = document.createElement('i');
     aNote.appendChild(delOnHover);
     delOnHover.className = 'fa-solid fa-trash';
     delOnHover.classList.add('del-on-hover');
 
+    // Delete a Note
     deleteTheNote = e => {
       titleInput.value = '';
       textArea.value = '';
@@ -53,6 +54,7 @@ let render = () => {
       deleteTheNote(e);
     };
 
+    // Mobile View Functionality
     if (window.matchMedia('(max-width: 425px)').matches) {
       aNote.onclick = () => {
         columnThree.style.display = 'grid';
@@ -254,6 +256,8 @@ function sortNote(e, tagOfNote) {
   render();
 }
 
+
+// Notes Filter
 sortTag.onclick = e => {
   switch (e.target.value) {
     case 'all':
@@ -474,6 +478,8 @@ function saveNote() {
   save();
 }
 
+
+// Mobile View Functionalities
 const tabNote = document.querySelector('.notes');
 const tabStar = document.querySelector('.starr');
 const columnThree = document.querySelector('.col-three');
